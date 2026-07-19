@@ -5,7 +5,7 @@
 export const APP_CONFIG = {
   name: "Plugged In Charging",
   shortName: "PIC",
-  tagline: "Power on the go",
+  tagline: "P.I.C. Point Locator",
 
   // Map centers here before/without geolocation.
   // Centered on the Clermont / Minneola, FL service area to fit all stations.
@@ -27,11 +27,10 @@ export const APP_CONFIG = {
     maxZoom: 19,
   },
 
-  // Shown in the Contact Us dialog. TODO: replace with real details.
+  // Shown in the Contact Us dialog.
   contact: {
-    phone: "+1 (555) 012-3456",
-    email: "support@pluggedincharging.com",
-    address: "123 Main Street, Your City, ST 00000",
-    hours: "Support: Mon–Fri, 9am–6pm",
+    phone: "407-431-2715",
+    email: "Stevenhage85@gmail.com",
+    facebook: "https://www.facebook.com/profile.php?id=61590770996509",
   },
 };

@@ -8,13 +8,18 @@ export default function BottomNav({ onLocate, onContact, locating }) {
           <MapIcon />
         </TabButton>
 
-        <button
-          onClick={onLocate}
-          className="mx-1 -mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-brand-green text-white shadow-lg shadow-brand-green/30 transition active:scale-95"
-          aria-label="Find my location"
-        >
-          {locating ? <Spinner /> : <LocateIcon />}
-        </button>
+        <div className="mx-1 -mt-6 flex flex-col items-center">
+          <button
+            onClick={onLocate}
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-green text-white shadow-lg shadow-brand-green/30 transition active:scale-95"
+            aria-label="Locate me — show P.I.C. Points near you"
+          >
+            {locating ? <Spinner /> : <LocateIcon />}
+          </button>
+          <span className="mt-0.5 text-[11px] font-semibold text-brand-green-dark">
+            {locating ? "Locating…" : "Near Me"}
+          </span>
+        </div>
 
         <TabButton label="Contact" onClick={onContact}>
           <ChatIcon />
