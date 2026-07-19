@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import MapView from "../components/MapView";
@@ -15,9 +15,14 @@ export default function MapPage() {
   const { stations, loading, isLive } = useStations();
   const { position, status, locate } = useGeolocation();
 
+  const navigate = useNavigate();
   const [selected, setSelected] = useState(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
+
+  // Supabase configured -> open the login dialog; demo -> go to /admin passcode.
+  const handleAdmin = () =>
+    isSupabaseConfigured ? setAdminOpen(true) : navigate("/admin");
 
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden">
@@ -28,7 +33,7 @@ export default function MapPage() {
         userPosition={position}
       />
 
-      <Header isLive={isLive} />
+      <Header isLive={isLive} onAdmin={handleAdmin} />
 
       {loading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center">
@@ -46,24 +51,6 @@ export default function MapPage() {
 
       <StationSheet station={selected} onClose={() => setSelected(null)} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
-
-      {/* Small, discreet admin entry point — tucked in a corner, not part
-          of the consumer nav. */}
-      {isSupabaseConfigured ? (
-        <button
-          onClick={() => setAdminOpen(true)}
-          className="safe-top absolute right-6 top-[4.5rem] z-20 px-1 py-0.5 text-[10px] font-medium tracking-wide text-navy/30"
-        >
-          Admin
-        </button>
-      ) : (
-        <Link
-          to="/admin"
-          className="safe-top absolute right-6 top-[4.5rem] z-20 px-1 py-0.5 text-[10px] font-medium tracking-wide text-navy/30"
-        >
-          Admin
-        </Link>
-      )}
       <AdminLoginModal open={adminOpen} onClose={() => setAdminOpen(false)} />
     </div>
   );

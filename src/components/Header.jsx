@@ -1,7 +1,7 @@
 import { APP_CONFIG } from "../config";
 
 // Top app bar. Compact, branded, with a live/mock data indicator.
-export default function Header({ isLive }) {
+export default function Header({ isLive, onAdmin }) {
   return (
     <header className="safe-top absolute top-0 left-0 right-0 z-20 px-4 pt-3">
       <div className="mx-auto flex max-w-md items-center justify-between rounded-2xl bg-white/90 px-4 py-2.5 shadow-[var(--shadow-card)] backdrop-blur">
@@ -21,20 +21,30 @@ export default function Header({ isLive }) {
           </div>
         </div>
 
-        <span
-          className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
-            isLive
-              ? "bg-brand-green-light text-brand-green-dark"
-              : "bg-amber/15 text-amber-dark"
-          }`}
-        >
+        <div className="flex flex-col items-end gap-1">
           <span
-            className={`h-1.5 w-1.5 rounded-full ${
-              isLive ? "bg-brand-green" : "bg-amber"
+            className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+              isLive
+                ? "bg-brand-green-light text-brand-green-dark"
+                : "bg-amber/15 text-amber-dark"
             }`}
-          />
-          {isLive ? "Live" : "Demo"}
-        </span>
+          >
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                isLive ? "bg-brand-green" : "bg-amber"
+              }`}
+            />
+            {isLive ? "Live" : "Demo"}
+          </span>
+          {onAdmin && (
+            <button
+              onClick={onAdmin}
+              className="px-1 text-[10px] font-medium tracking-wide text-navy/30"
+            >
+              Admin
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );
