@@ -55,7 +55,7 @@ function Gate({ pass, setPass, onSubmit }) {
       >
         <h1 className="text-xl font-bold text-navy">Admin access</h1>
         <p className="mt-1 text-sm text-navy-400">
-          Enter the passcode to manage stations.
+          Enter the passcode to manage P.I.C. Points.
         </p>
         <input
           type="password"
@@ -89,7 +89,7 @@ function Dashboard() {
   async function handleAdd(e) {
     e.preventDefault();
     if (!isSupabaseConfigured) {
-      setNotice("Connect Supabase (.env) to save stations. Nothing was written.");
+      setNotice("Connect Supabase (.env) to save P.I.C. Points. Nothing was written.");
       return;
     }
     setSaving(true);
@@ -108,7 +108,7 @@ function Dashboard() {
 
   async function handleDelete(id) {
     if (!isSupabaseConfigured) return;
-    if (!confirm("Delete this station?")) return;
+    if (!confirm("Delete this P.I.C. Point?")) return;
     const { error } = await supabase.from("stations").delete().eq("id", id);
     if (error) console.error(error);
   }
@@ -116,7 +116,7 @@ function Dashboard() {
   return (
     <div className="min-h-[100dvh] bg-[#f4f6fb] pb-12">
       <header className="safe-top flex items-center justify-between bg-navy px-5 py-4 text-white">
-        <h1 className="text-lg font-bold">Station Admin</h1>
+        <h1 className="text-lg font-bold">P.I.C. Point Admin</h1>
         <Link to="/" className="text-sm font-medium text-white/80">
           View map →
         </Link>
@@ -126,7 +126,7 @@ function Dashboard() {
         {!isSupabaseConfigured && (
           <p className="mt-4 rounded-xl bg-amber/15 px-4 py-3 text-sm text-amber-dark">
             Demo mode — Supabase isn't configured, so changes aren't saved.
-            Stations below are mock data.
+            P.I.C. Points below are mock data.
           </p>
         )}
 
@@ -134,7 +134,7 @@ function Dashboard() {
           onSubmit={handleAdd}
           className="mt-4 space-y-2.5 rounded-2xl bg-white p-4 shadow-[var(--shadow-card)]"
         >
-          <h2 className="font-semibold text-navy">Add a station</h2>
+          <h2 className="font-semibold text-navy">Add a P.I.C. Point</h2>
           <Field label="Venue name" value={form.name} onChange={update("name")} />
           <Field label="Address" value={form.address} onChange={update("address")} />
           <div className="grid grid-cols-2 gap-2.5">
@@ -143,22 +143,18 @@ function Dashboard() {
           </div>
           <Field label="Hours" value={form.hours} onChange={update("hours")} />
           <Field label="Terminal / hardware ID" value={form.terminalId} onChange={update("terminalId")} />
-          <div className="grid grid-cols-3 gap-2.5">
-            <Field label="Total slots" value={form.totalSlots} onChange={update("totalSlots")} />
-            <Field label="Batteries" value={form.availableBatteries} onChange={update("availableBatteries")} />
-            <Field label="Empty slots" value={form.emptySlots} onChange={update("emptySlots")} />
-          </div>
+          <Field label="Battery Capacity" value={form.totalSlots} onChange={update("totalSlots")} />
           <button
             disabled={saving}
             className="w-full rounded-xl bg-brand-green py-3 text-sm font-semibold text-white disabled:opacity-60"
           >
-            {saving ? "Saving…" : "Add station"}
+            {saving ? "Saving…" : "Add P.I.C. Point"}
           </button>
           {notice && <p className="text-center text-xs text-navy-400">{notice}</p>}
         </form>
 
         <h2 className="mt-6 mb-2 font-semibold text-navy">
-          Stations ({stations.length})
+          P.I.C. Points ({stations.length})
         </h2>
         <ul className="space-y-2">
           {stations.map((s) => (
@@ -169,8 +165,7 @@ function Dashboard() {
               <div>
                 <p className="font-semibold text-navy">{s.name}</p>
                 <p className="text-xs text-navy-400">
-                  {s.availableBatteries ?? 0} batteries · {s.emptySlots ?? 0}{" "}
-                  slots · {s.terminalId}
+                  Battery capacity {s.totalSlots ?? 0} · {s.terminalId}
                 </p>
               </div>
               <button

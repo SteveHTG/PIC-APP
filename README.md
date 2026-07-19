@@ -48,7 +48,7 @@ One-time setup on the repo:
 1. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
 2. **Settings → Secrets and variables → Actions** → add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 
-The site serves at `https://<owner>.github.io/plugged-in-charging/`. The base path is set in `vite.config.js` (`PROD_BASE`) — keep it in sync with the repo name. For a custom domain (served at root), set `PROD_BASE = "/"` and `pathSegmentsToKeep = 0` in `public/404.html`.
+The site serves at `https://<owner>.github.io/PIC-APP/`. The base path is set in `vite.config.js` (`PROD_BASE`) — keep it in sync with the repo name. For a custom domain (served at root), set `PROD_BASE = "/"` and `pathSegmentsToKeep = 0` in `public/404.html`.
 
 ## Project structure
 

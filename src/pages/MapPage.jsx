@@ -29,7 +29,7 @@ export default function MapPage() {
       {loading && (
         <div className="absolute inset-0 z-10 flex items-center justify-center">
           <span className="rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-navy shadow">
-            Loading stations…
+            Loading P.I.C. Points…
           </span>
         </div>
       )}

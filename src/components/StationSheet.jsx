@@ -1,16 +1,10 @@
-import {
-  getBatteryStatus,
-  getReturnStatus,
-  STATUS_STYLES,
-} from "../lib/availability";
 import { getDirectionsUrl } from "../lib/navigation";
 
 // Bottom sheet shown when a station pin is tapped.
 export default function StationSheet({ station, onClose }) {
   if (!station) return null;
 
-  const battery = getBatteryStatus(station.availableBatteries ?? 0);
-  const returns = getReturnStatus(station.emptySlots ?? 0);
+  const capacity = station.totalSlots ?? 0;
 
   return (
     <>
@@ -27,6 +21,9 @@ export default function StationSheet({ station, onClose }) {
 
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
+              <span className="mb-1 inline-flex items-center rounded-full bg-brand-green-light px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-green-dark">
+                P.I.C. Point
+              </span>
               <h2 className="text-lg font-bold text-navy">{station.name}</h2>
               <p className="mt-0.5 text-sm text-navy-400">{station.address}</p>
             </div>
@@ -39,18 +36,20 @@ export default function StationSheet({ station, onClose }) {
             </button>
           </div>
 
-          {/* Availability — the two rental-model counts */}
-          <div className="mb-4 grid grid-cols-2 gap-3">
-            <StatCard
-              value={station.availableBatteries ?? 0}
-              caption="Batteries to grab"
-              status={battery}
-            />
-            <StatCard
-              value={station.emptySlots ?? 0}
-              caption="Slots to return"
-              status={returns}
-            />
+          {/* Station size */}
+          <div className="mb-4 flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-[var(--shadow-card)]">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-green-light">
+              <BatteryBoltIcon className="h-6 w-6 text-brand-green-dark" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-navy-400">Battery Capacity</p>
+              <p className="text-2xl font-bold leading-tight text-navy">
+                {capacity}{" "}
+                <span className="text-base font-semibold text-navy-400">
+                  {capacity === 1 ? "battery" : "batteries"}
+                </span>
+              </p>
+            </div>
           </div>
 
           {/* Hours */}
@@ -74,19 +73,15 @@ export default function StationSheet({ station, onClose }) {
   );
 }
 
-function StatCard({ value, caption, status }) {
-  const styles = STATUS_STYLES[status.level];
+function BatteryBoltIcon({ className }) {
   return (
-    <div className="rounded-2xl border border-slate-100 bg-white p-3.5 shadow-[var(--shadow-card)]">
-      <div className="flex items-baseline gap-1.5">
-        <span className={`text-3xl font-bold ${styles.text}`}>{value}</span>
-        <span className={`h-2 w-2 rounded-full ${styles.dot}`} />
-      </div>
-      <p className="mt-1 text-xs font-medium text-navy-400">{caption}</p>
-    </div>
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7" width="16" height="10" rx="2" />
+      <path d="M22 11v2" />
+      <path d="M10 9.5 8 12.5h2.2L9.5 15l3-3.2H10l.5-2.3z" fill="currentColor" stroke="none" />
+    </svg>
   );
 }
-
 function ClockIcon() {
   return (
     <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

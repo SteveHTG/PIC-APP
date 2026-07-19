@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 // GitHub Pages project site is served from a subpath: /<repo>/.
 // Keep this in sync with the repo name (it survives an ownership transfer).
 // If you later add a custom domain (served at root), set this back to "/".
-const PROD_BASE = "/plugged-in-charging/";
+const PROD_BASE = "/PIC-APP/";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {

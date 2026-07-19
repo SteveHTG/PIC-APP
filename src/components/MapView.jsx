@@ -2,7 +2,6 @@ import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
 import { APP_CONFIG } from "../config";
-import { getBatteryStatus } from "../lib/availability";
 
 // ------------------------------------------------------------------
 // Real map — Leaflet via react-leaflet, OpenStreetMap tiles.
@@ -12,12 +11,6 @@ import { getBatteryStatus } from "../lib/availability";
 // Props are unchanged from the earlier placeholder:
 //   stations, selectedId, onSelectStation, userPosition
 // ------------------------------------------------------------------
-const PIN_COLORS = {
-  good: "var(--pin-good, #2ba524)",
-  low: "#f5b301",
-  empty: "#94a3b8",
-};
-
 function pinSvg(color) {
   return `
     <svg width="34" height="44" viewBox="0 0 34 44" xmlns="http://www.w3.org/2000/svg">
@@ -27,8 +20,9 @@ function pinSvg(color) {
     </svg>`;
 }
 
-function makeIcon(level, selected) {
-  const color = selected ? "#13294b" : level === "good" ? "#2ba524" : PIN_COLORS[level];
+// All stations use the brand green pin (navy when selected).
+function makeIcon(selected) {
+  const color = selected ? "#13294b" : "#2ba524";
   return L.divIcon({
     className: "pic-pin",
     html: `<div style="transform:${selected ? "scale(1.15)" : "scale(1)"};transform-origin:bottom center;filter:drop-shadow(0 3px 4px rgba(19,41,75,.35))">${pinSvg(color)}</div>`,
@@ -93,12 +87,11 @@ export default function MapView({
         {stations.map((station) => {
           const coords = station.coordinates;
           if (!coords) return null;
-          const level = getBatteryStatus(station.availableBatteries ?? 0).level;
           return (
             <Marker
               key={station.id}
               position={[coords.latitude, coords.longitude]}
-              icon={makeIcon(level, station.id === selectedId)}
+              icon={makeIcon(station.id === selectedId)}
               eventHandlers={{ click: () => onSelectStation(station) }}
             />
           );
