@@ -6,6 +6,7 @@ import MapView from "../components/MapView";
 import StationSheet from "../components/StationSheet";
 import ContactModal from "../components/ContactModal";
 import AdminLoginModal from "../components/AdminLoginModal";
+import InstallPrompt from "../components/InstallPrompt";
 import { useStations } from "../hooks/useStations";
 import { useGeolocation } from "../hooks/useGeolocation";
 import { isSupabaseConfigured } from "../supabase/client";
@@ -48,6 +49,8 @@ export default function MapPage() {
         onContact={() => setContactOpen(true)}
         locating={status === "locating"}
       />
+
+      <InstallPrompt />
 
       <StationSheet station={selected} onClose={() => setSelected(null)} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
