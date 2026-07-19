@@ -70,24 +70,17 @@ create policy "tickets_public_insert"
 -- ---------------------------------------------------------------------------
 -- 4. ADMIN WRITES TO STATIONS
 -- ---------------------------------------------------------------------------
--- The /admin screen currently uses the public anon key + a client-side
--- passcode, which RLS above does NOT permit to write. Choose ONE:
+-- The /admin screen signs in with Supabase Auth (email/password). Only a
+-- signed-in user may insert/update/delete stations; anonymous visitors
+-- still get read-only access via the policy in §3.
 --
---   (A) PROPER (recommended before go-live): add Supabase Auth, then a policy
---       that only allows authenticated admins to write, e.g.:
---
---       create policy "stations_admin_write"
---         on public.stations for all
---         using (auth.role() = 'authenticated')
---         with check (auth.role() = 'authenticated');
---
---   (B) DEV ONLY (insecure — anyone with the anon key can edit stations):
---       uncomment to let the current admin UI write against live data while
---       prototyping. REMOVE before launch.
---
--- create policy "stations_anon_write_DEV_ONLY"
---   on public.stations for all
---   using (true) with check (true);
+-- There is no public sign-up screen in the app. Create the admin account
+-- in the Supabase Dashboard: Authentication > Users > Add user.
+drop policy if exists "stations_admin_write" on public.stations;
+create policy "stations_admin_write"
+  on public.stations for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
 
 -- ---------------------------------------------------------------------------
 -- 5. REALTIME
