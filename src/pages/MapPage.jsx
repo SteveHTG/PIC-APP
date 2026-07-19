@@ -52,14 +52,14 @@ export default function MapPage() {
       {isSupabaseConfigured ? (
         <button
           onClick={() => setAdminOpen(true)}
-          className="safe-top absolute right-3 top-20 z-20 px-2 py-1 text-[10px] font-medium tracking-wide text-navy/30"
+          className="safe-top absolute right-6 top-[4.5rem] z-20 px-1 py-0.5 text-[10px] font-medium tracking-wide text-navy/30"
         >
           Admin
         </button>
       ) : (
         <Link
           to="/admin"
-          className="safe-top absolute right-3 top-20 z-20 px-2 py-1 text-[10px] font-medium tracking-wide text-navy/30"
+          className="safe-top absolute right-6 top-[4.5rem] z-20 px-1 py-0.5 text-[10px] font-medium tracking-wide text-navy/30"
         >
           Admin
         </Link>
