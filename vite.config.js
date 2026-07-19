@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       VitePWA({
         registerType: "autoUpdate",
-        includeAssets: ["favicon.ico", "apple-touch-icon.png", "logo.jpg"],
+        includeAssets: ["apple-touch-icon.png", "logo-mark.svg"],
         manifest: {
           name: "Plugged In Charging",
           short_name: "PIC",

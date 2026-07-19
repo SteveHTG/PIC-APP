@@ -6,8 +6,12 @@ export default function Header({ isLive }) {
     <header className="safe-top absolute top-0 left-0 right-0 z-20 px-4 pt-3">
       <div className="mx-auto flex max-w-md items-center justify-between rounded-2xl bg-white/90 px-4 py-2.5 shadow-[var(--shadow-card)] backdrop-blur">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-navy">
-            <BoltIcon className="h-5 w-5 text-brand-green" />
+          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-white ring-1 ring-slate-100">
+            <img
+              src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+              alt="Plugged In Charging"
+              className="h-full w-full object-contain p-0.5"
+            />
           </div>
           <div className="leading-tight">
             <p className="text-sm font-bold text-navy">{APP_CONFIG.name}</p>
@@ -33,13 +37,5 @@ export default function Header({ isLive }) {
         </span>
       </div>
     </header>
-  );
-}
-
-function BoltIcon({ className }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M13 2 4.5 13.5H11l-1 8.5 9.5-12H13l0-8z" />
-    </svg>
   );
 }
