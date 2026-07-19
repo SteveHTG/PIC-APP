@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* ------------------------------------------------------------------ */
+/* Plugged In Charging — brand theme                                   */
+/* Colors pulled from the logo: deep navy, energetic green, gold accent */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-navy: #13294b;
+  --color-navy-600: #1e3a63;
+  --color-navy-400: #3b5b8c;
+
+  --color-brand-green: #2ba524;
+  --color-brand-green-dark: #1f8a1b;
+  --color-brand-green-light: #e8f7e6;
+
+  --color-amber: #f5b301;
+  --color-amber-dark: #d69a00;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+
+  --shadow-sheet: 0 -8px 30px -8px rgba(19, 41, 75, 0.25);
+  --shadow-card: 0 4px 20px -4px rgba(19, 41, 75, 0.15);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #f4f6fb;
+  color: var(--color-navy);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Respect device safe areas (notches / home indicator). */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Bottom-sheet slide-up animation */
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.animate-sheet-up {
+  animation: sheet-up 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
