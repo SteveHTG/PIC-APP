@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/PIC-APP/sw.js', { scope: '/PIC-APP/' })})}
